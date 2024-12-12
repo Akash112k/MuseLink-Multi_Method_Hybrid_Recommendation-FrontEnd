@@ -1,7 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
 import high_interaction from './highinteraction.json' with { type: 'json' };
 import artist from './artists.json' with {type: 'json'};
-
+import artist_tags from './artist_tags.json' with {type: 'json'};
 
 export interface TensorflowPrediction {
   id: string;
@@ -9,6 +9,7 @@ export interface TensorflowPrediction {
   score: number;
   description: string;
   url: string;
+  tags: Array<String>;
 }
 
 export const loadNCFModel = async () => {
@@ -48,12 +49,16 @@ export const getTensorflowRecommendations = async (userId: string): Promise<Tens
     let artistMap = new Map();
     artist.forEach(artist => { artistMap.set(artist.id, artist); console.log(artistMap.get(artist.id)); });
 
+    let tagMap = new Map();
+    artist_tags.forEach(atv => tagMap.set(atv.artistID, atv.tag))
+
     return artistIds.map((artistId, index) => ({
       id: `${artistId}`,
       title: artistMap.get(artistId).name,
       score: scores[index],
       description: artistMap.get(artistId).pictureURL,
-      url: artistMap.get(artistId).url
+      url: artistMap.get(artistId).url,
+      tags: tagMap.get(artistId) || []
     })).sort((a, b) => b.score - a.score);
   } catch (error) {
     console.error('Error making TensorFlow predictions:', error);
