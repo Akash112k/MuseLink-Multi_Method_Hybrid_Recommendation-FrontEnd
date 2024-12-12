@@ -1,4 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
+// import * as high_interaction from highinteraction;
+import { readFileSync } from "node:fs";
+
 
 export interface TensorflowPrediction {
   id: string;
@@ -10,6 +13,9 @@ export interface TensorflowPrediction {
 export const loadNCFModel = async () => {
   try {
     const model = await tf.loadLayersModel('/src/services/models/NCF/model.json');
+    console.log('NCF Model loading complete');
+    // console.log(high_interaction);
+    
     return model;
   } catch (error) {
     console.error('Error loading NCF model:', error);
@@ -20,6 +26,8 @@ export const loadNCFModel = async () => {
 export const getTensorflowRecommendations = async (userId: string): Promise<TensorflowPrediction[]> => {
   try {
     const model = await loadNCFModel();
+    let high_interaction = JSON.parse(readFileSync('file', 'utf8'));
+    console.log(high_interaction);
     
     // Create sample artist IDs for demonstration
     const artistIds = Array.from({ length: 5 }, (_, i) => i + 1);
