@@ -25,8 +25,13 @@ export const UserIdInput = ({ onSubmit, isLoading }: UserIdInputProps) => {
         onChange={(e) => setUserId(e.target.value)}
         placeholder="Enter User ID"
         disabled={isLoading}
+        className="bg-white/50 backdrop-blur-sm border-primary/20 focus:border-primary/40"
       />
-      <Button type="submit" disabled={isLoading || !userId.trim()}>
+      <Button 
+        type="submit" 
+        disabled={isLoading || !userId.trim()}
+        className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity"
+      >
         {isLoading ? 'Loading...' : 'Get Recommendations'}
       </Button>
     </form>

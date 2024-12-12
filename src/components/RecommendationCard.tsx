@@ -16,17 +16,17 @@ export const RecommendationCard = ({ modelName, recommendations }: Recommendatio
   return (
     <Card className="glass-card fade-in">
       <CardHeader>
-        <CardTitle className="text-lg font-medium">
+        <CardTitle className="text-lg font-medium bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
           {modelName.charAt(0).toUpperCase() + modelName.slice(1)} Model
         </CardTitle>
       </CardHeader>
       <CardContent>
         <ul className="space-y-3">
           {recommendations.map((rec) => (
-            <li key={rec.id} className="p-3 rounded-lg bg-secondary/50 backdrop-blur-sm">
+            <li key={rec.id} className="recommendation-item p-3 rounded-lg">
               <div className="flex justify-between items-center mb-1">
                 <h4 className="font-medium">{rec.title}</h4>
-                <span className="text-sm text-muted-foreground">
+                <span className="text-sm text-primary/80">
                   Score: {rec.score.toFixed(2)}
                 </span>
               </div>

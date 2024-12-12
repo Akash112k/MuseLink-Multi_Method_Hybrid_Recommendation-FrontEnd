@@ -27,10 +27,12 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="page-gradient">
+      <div className="max-w-7xl mx-auto p-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Recommendation Engine</h1>
+          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Recommendation Engine
+          </h1>
           <p className="text-lg text-muted-foreground">
             Enter a user ID to get personalized recommendations from multiple models
           </p>
