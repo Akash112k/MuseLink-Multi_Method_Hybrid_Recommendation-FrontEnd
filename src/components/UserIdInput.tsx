@@ -18,13 +18,12 @@ export const UserIdInput = ({ onSubmit, isLoading }: UserIdInputProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-4 max-w-md mx-auto mb-8">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md mx-auto mb-8">
       <Input
         type="text"
         value={userId}
         onChange={(e) => setUserId(e.target.value)}
         placeholder="Enter User ID"
-        className="flex-1"
         disabled={isLoading}
       />
       <Button type="submit" disabled={isLoading || !userId.trim()}>
