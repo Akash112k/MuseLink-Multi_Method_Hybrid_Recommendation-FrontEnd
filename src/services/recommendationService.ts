@@ -1,3 +1,5 @@
+import { getTensorflowRecommendations } from './tensorflowService';
+
 interface Recommendation {
   id: string;
   title: string;
@@ -30,8 +32,18 @@ export const fetchRecommendations = async (userId: string): Promise<ModelRespons
   };
 
   try {
-    const results = await Promise.all(models.map(model => simulateModelCall(model)));
-    return results;
+    // Get traditional model recommendations
+    const traditionalResults = await Promise.all(models.map(model => simulateModelCall(model)));
+    
+    // Get TensorFlow recommendations
+    const tfRecommendations = await getTensorflowRecommendations(userId);
+    const tensorflowResult = {
+      modelName: 'tensorflow',
+      recommendations: tfRecommendations
+    };
+
+    // Combine all results
+    return [...traditionalResults, tensorflowResult];
   } catch (error) {
     console.error('Error fetching recommendations:', error);
     throw error;
