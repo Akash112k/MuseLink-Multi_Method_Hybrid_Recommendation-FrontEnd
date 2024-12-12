@@ -7,7 +7,7 @@ interface Recommendation {
   score: number;
   description?: string;
   url: string;
-  tags: Array<String>;
+  tags: String[];
 }
 
 interface RecommendationCardProps {
@@ -40,13 +40,20 @@ export const RecommendationCard = ({ modelName, recommendations }: Recommendatio
                       </a>
                     </h4>
                     <span className="text-sm text-primary/80">
-                      Score: {rec.score.toFixed(2)}
+                      <a href="{rec.url}" target="_blank">Visit page</a>
                     </span>
                   </div>
                   {rec.description && (
                     <p className="text-sm text-muted-foreground">Artist Id: {rec.id}</p>
                   )}
                 </div>
+              </div>
+              <div className="flex-2">
+                {rec.tags.map((tag) => (
+                  <div className="pill-box">
+                    {tag}
+                  </div>
+                ))}
               </div>
             </li>
           ))}

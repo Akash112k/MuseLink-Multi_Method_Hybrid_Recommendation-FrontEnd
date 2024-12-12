@@ -86,3 +86,16 @@
 .page-gradient {
   @apply min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10;
 }
+
+.pill-box {
+  /* width: 100px; */
+  height: 20px;
+  background-color: #c8d6c8; /* Change to your desired color */
+  color: rgb(36, 34, 34);
+  text-align: center;
+  line-height: 20px; /* Center text vertically */
+  border-radius: 25px; /* This makes it pill-shaped */
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  margin: 10px;
+}

@@ -6,7 +6,7 @@ interface Recommendation {
   score: number;
   description?: string;
   url: string;
-  tags: Array<String>;
+  tags: String[];
 }
 
 interface ModelResponse {

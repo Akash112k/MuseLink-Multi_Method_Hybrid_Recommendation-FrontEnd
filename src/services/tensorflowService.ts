@@ -9,7 +9,7 @@ export interface TensorflowPrediction {
   score: number;
   description: string;
   url: string;
-  tags: Array<String>;
+  tags: String[];
 }
 
 export const loadNCFModel = async () => {
@@ -47,10 +47,10 @@ export const getTensorflowRecommendations = async (userId: string): Promise<Tens
     predictions.dispose();
 
     let artistMap = new Map();
-    artist.forEach(artist => { artistMap.set(artist.id, artist); console.log(artistMap.get(artist.id)); });
+    artist.forEach(artist => { artistMap.set(artist.id, artist);});
 
     let tagMap = new Map();
-    artist_tags.forEach(atv => tagMap.set(atv.artistID, atv.tag))
+    artist_tags.forEach(atv => tagMap.set(atv.artistID, atv.tag));
 
     return artistIds.map((artistId, index) => ({
       id: `${artistId}`,
@@ -58,8 +58,8 @@ export const getTensorflowRecommendations = async (userId: string): Promise<Tens
       score: scores[index],
       description: artistMap.get(artistId).pictureURL,
       url: artistMap.get(artistId).url,
-      tags: tagMap.get(artistId) || []
-    })).sort((a, b) => b.score - a.score);
+      tags: (tagMap.get(artistId) || []).slice(0, 5)
+    })).sort((a, b) => b.score - a.score).slice(0, 9);
   } catch (error) {
     console.error('Error making TensorFlow predictions:', error);
     throw error;
