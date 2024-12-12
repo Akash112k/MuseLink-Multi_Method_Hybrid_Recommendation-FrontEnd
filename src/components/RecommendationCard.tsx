@@ -5,6 +5,7 @@ interface Recommendation {
   title: string;
   score: number;
   description?: string;
+  url: string;
 }
 
 interface RecommendationCardProps {
@@ -25,13 +26,13 @@ export const RecommendationCard = ({ modelName, recommendations }: Recommendatio
           {recommendations.map((rec) => (
             <li key={rec.id} className="recommendation-item p-3 rounded-lg">
               <div className="flex justify-between items-center mb-1">
-                <h4 className="font-medium">{rec.title}</h4>
+                <h4 className="font-medium"><a href={rec.url}>{rec.title}</a></h4>
                 <span className="text-sm text-primary/80">
                   Score: {rec.score.toFixed(2)}
                 </span>
               </div>
               {rec.description && (
-                <p className="text-sm text-muted-foreground">{rec.description}</p>
+                <p className="text-sm text-muted-foreground">Artist Id: {rec.id}</p>
               )}
             </li>
           ))}

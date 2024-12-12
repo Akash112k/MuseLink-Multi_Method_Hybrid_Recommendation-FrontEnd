@@ -5,6 +5,7 @@ interface Recommendation {
   title: string;
   score: number;
   description?: string;
+  url: string;
 }
 
 interface ModelResponse {
@@ -38,12 +39,12 @@ export const fetchRecommendations = async (userId: string): Promise<ModelRespons
     // Get TensorFlow recommendations
     const tfRecommendations = await getTensorflowRecommendations(userId);
     const tensorflowResult = {
-      modelName: 'tensorflow',
+      modelName: 'NCF',
       recommendations: tfRecommendations
     };
 
     // Combine all results
-    return [...traditionalResults, tensorflowResult];
+    return [tensorflowResult];
   } catch (error) {
     console.error('Error fetching recommendations:', error);
     throw error;

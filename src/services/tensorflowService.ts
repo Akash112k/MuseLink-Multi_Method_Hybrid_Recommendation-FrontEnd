@@ -8,6 +8,7 @@ export interface TensorflowPrediction {
   title: string;
   score: number;
   description: string;
+  url: string;
 }
 
 export const loadNCFModel = async () => {
@@ -15,7 +16,7 @@ export const loadNCFModel = async () => {
     const model = await tf.loadLayersModel('/src/services/models/NCF/model.json');
     console.log('NCF Model loading complete');
     // console.log(high_interaction);
-    
+
     return model;
   } catch (error) {
     console.error('Error loading NCF model:', error);
@@ -30,25 +31,29 @@ export const getTensorflowRecommendations = async (userId: string): Promise<Tens
     let artistIds = high_interaction.map(item => item.artistID);
     let uniqueArtistId = new Set(artistIds);
     artistIds = [...uniqueArtistId];
-    
+
     // Prepare input tensors
     const userTensor = tf.tensor2d(Array(artistIds.length).fill(Number(userId)), [artistIds.length, 1]);
     const artistTensor = tf.tensor2d(artistIds, [artistIds.length, 1]);
-    
+
     // Make predictions
     const predictions = await model.predict([userTensor, artistTensor]) as tf.Tensor;
     const scores = await predictions.data();
-    
+
     // Cleanup tensors
     userTensor.dispose();
     artistTensor.dispose();
     predictions.dispose();
-    
+
+    let artistMap = new Map();
+    artist.forEach(artist => { artistMap.set(artist.id, artist); console.log(artistMap.get(artist.id)); });
+
     return artistIds.map((artistId, index) => ({
       id: `${artistId}`,
-      title: `Artist ${artistId}`,
+      title: artistMap.get(artistId).name,
       score: scores[index],
-      description: `TensorFlow recommendation for user ${userId}`
+      description: artistMap.get(artistId).pictureURL,
+      url: artistMap.get(artistId).url
     })).sort((a, b) => b.score - a.score);
   } catch (error) {
     console.error('Error making TensorFlow predictions:', error);
