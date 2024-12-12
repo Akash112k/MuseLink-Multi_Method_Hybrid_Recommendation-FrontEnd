@@ -14,17 +14,6 @@ interface RecommendationCardProps {
   recommendations: Recommendation[];
 }
 
-const getPlaceholderImage = (index: number) => {
-  const images = [
-    'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
-    'https://images.unsplash.com/photo-1518770660439-4636190af475',
-    'https://images.unsplash.com/photo-1461749280684-dccba630e2f6',
-    'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d',
-    'https://images.unsplash.com/photo-1485827404703-89b55fcc595e'
-  ];
-  return images[index % images.length];
-};
-
 export const RecommendationCard = ({ modelName, recommendations }: RecommendationCardProps) => {
   return (
     <Card className="glass-card fade-in">
@@ -39,7 +28,7 @@ export const RecommendationCard = ({ modelName, recommendations }: Recommendatio
             <li key={rec.id} className="recommendation-item p-3 rounded-lg">
               <div className="flex items-center gap-4">
                 <Avatar className="h-12 w-12">
-                  <AvatarImage src={getPlaceholderImage(index)} alt={rec.title} />
+                  <AvatarImage src={rec.description} alt={rec.title} />
                   <AvatarFallback>{rec.title[0]}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
