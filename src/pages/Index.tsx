@@ -33,7 +33,7 @@ const Index = () => {
           <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Recommendation Engine
           </h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-foreground">
             Enter a user ID to get personalized recommendations from multiple models
           </p>
         </div>
